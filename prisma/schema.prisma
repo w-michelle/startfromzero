@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String    @id @default(cuid())
+  name             String?
+  email            String?   @unique
+  emailVerified    DateTime?
+  hashedPassword   String?
+  image            String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  stripeCustomerId String?
+  accounts         Account[]
+  sessions         Session[]
+  orders           Order[]
+  cart             Cart[]
+}
+
+model Account {
+  id                 String    @id @default(cuid())
+  userId             String
+  providerType       String
+  providerId         String
+  providerAccountId  String
+  refreshToken       String?
+  accessToken        String?
+  accessTokenExpires DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id])
+
+  @@unique([providerId, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  expires      DateTime
+  sessionToken String   @unique
+  accessToken  String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  price       String
+  description String?
+  images      Image[]
+  createdAt   DateTime @default(now())
+
+  quantity Float?
+  CartItem CartItem[]
+  Cart     Cart?      @relation(fields: [cartId], references: [id])
+  cartId   String?
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  name        String
+  price       String
+  description String?
+  images      Image[]
+  createdAt   DateTime @default(now())
+  order       Order[]
+  quantity    Float?
+}
+
+model Order {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  createdAt       DateTime @default(now())
+  amount          Float
+  status          String
+  paymentIntentID String?  @unique
+
+  orderItems OrderItem[]
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+  imageKey  String
+  url       String
+  createdAt DateTime @default(now())
+  imgurl    String?
+
+  OrderItem   OrderItem? @relation(fields: [orderItemId], references: [id])
+  orderItemId String?
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  products  Product[]
+  user      User?      @relation(fields: [userId], references: [id])
+  userId    String?
+  cartItems CartItem[]
+}
+
+model CartItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  cart      Cart?   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId    String?
+}

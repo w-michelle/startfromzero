@@ -1,0 +1,221 @@
+import {
+  decreaseQty,
+  increaseQty,
+  removeFromCart,
+  selectCart,
+  selectCartOpen,
+  setCheckout,
+  setIsCartOpen,
+} from "@/app/redux/features/cartSlice";
+import { hkdollar } from "@/util/currency";
+import { CartItem } from "@/app/redux/features/cartSlice";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
+import { usePathname, useRouter } from "next/navigation";
+
+const Cart = () => {
+  const cart = useSelector(selectCart);
+  const dispatch = useDispatch();
+
+  const isOpen = useSelector(selectCartOpen);
+  const [increase, setIncrease] = useState("");
+  const [decrease, setDecrease] = useState("");
+  const path = usePathname();
+  console.log("current cart:", cart);
+
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  const orderTotal = cart.reduce((acc, item) => {
+    return acc + item.quantity! * Number(item.price);
+  }, 0);
+
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      dispatch(setIsCartOpen());
+    }
+  };
+
+  const totalPrice = (price: number, qty: number) => {
+    return Number(price) * qty;
+  };
+
+  const increaseItem = async (item: CartItem) => {
+    try {
+      dispatch(increaseQty(item));
+      const response = await axios.post(
+        `/api/cartActions?id=${item.id}&action=increase`
+      );
+      if (response.status === 200) {
+        setIncrease("increase");
+      }
+    } catch (error) {
+      console.error("Error in increase item", error);
+    }
+  };
+
+  const decreaseItem = async (item: CartItem) => {
+    try {
+      dispatch(decreaseQty(item));
+      const response = await axios.post(
+        `/api/cartActions?id=${item.id}&action=decrease`
+      );
+      if (response.status === 200) {
+        setDecrease("decrease");
+      }
+    } catch (error) {
+      console.error("Error in decrease item", error);
+    }
+  };
+
+  const removeItem = async (item: CartItem) => {
+    try {
+      dispatch(removeFromCart(item));
+
+      const response = await axios.post(
+        `/api/cartActions?id=${item.id}&action=remove`
+      );
+      console.log("cart is currently", isOpen);
+      if (response.status === 200) {
+      }
+    } catch (error) {
+      console.error("Error in remove item", error);
+    }
+  };
+  const handleCheckout = () => {
+    dispatch(setCheckout());
+    dispatch(setIsCartOpen());
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener("click", handleOutsideClick);
+    } else {
+      document.removeEventListener("click", handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isOpen]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className={`text-white absolute z-[999] top-0 left-0 w-full backdrop-blur-sm bg-black/40 ${
+            path === "/" ? "h-screen" : "h-full"
+          }`}
+          initial={{ x: "100%" }} // Initially positioned to the right
+          animate={{ x: 0, transition: { duration: 0.5, ease: "easeInOut" } }} // Slower slide in with ease
+          exit={{ x: "100%", transition: { duration: 0.5, ease: "easeInOut" } }}
+        >
+          <div
+            className="bg-black border-l-[1px] border-white w-full sm:w-[450px] h-full absolute right-0"
+            ref={modalRef}
+          >
+            <button
+              className="m-4 absolute right-0 font-thin text-sm"
+              onClick={() => dispatch(setIsCartOpen())}
+            >
+              Close
+            </button>
+            <div className="p-4 mt-10">
+              <h1 className="mb-4">
+                {cart?.length === 0
+                  ? "Your cart is empty"
+                  : `Cart (${cart.length})`}
+              </h1>
+              {cart?.length > 0 && (
+                <div className="h-full">
+                  <div className="text-[10px] sm:text-xs w-full">
+                    <ul className="border-b-[1px] border-white w-full flex ">
+                      <li className="w-1/5">Item</li>
+                      <li className="w-1/5">Quantity</li>
+                      <li className="w-1/5">Unit Price</li>
+                      <li className="w-1/5">Total Price</li>
+                      <li className="w-1/5"></li>
+                    </ul>
+
+                    <div className="scrollbar border-t-[1px] border-white w-full h-[500px] md:h-[600px] overflow-y-scroll">
+                      {cart.map((item) => (
+                        <div key={item.id} className="flex items-center w-full">
+                          <div className="pt-4 w-1/5">
+                            <div className="hidden md:block relative w-[60px] h-[60px]">
+                              <Image
+                                src={item?.images[0].url}
+                                alt="product image"
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                            <p className="uppercase mt-2 w-[30px]">
+                              {item.name}
+                            </p>
+                          </div>
+                          <div className="flex flex-col justify-center h-[150px] w-1/5">
+                            <div className="flex">
+                              <AiFillMinusCircle
+                                onClick={() => decreaseItem(item)}
+                                className="text-[14px] mr-2 hover:cursor-pointer"
+                              />
+                              <span>{item.quantity}</span>
+                              <AiFillPlusCircle
+                                onClick={() => increaseItem(item)}
+                                className="text-[14px] ml-2 hover:cursor-pointer"
+                              />
+                            </div>
+                          </div>
+                          <div className="w-1/5 pl-2">
+                            ${Number(item.price)}
+                          </div>
+                          <div className="w-1/5 pl-2">
+                            <p>
+                              $
+                              {totalPrice(
+                                Number(item.price),
+                                Number(item.quantity)
+                              )}
+                            </p>
+                          </div>
+                          <div>
+                            <div
+                              className="underline cursor-pointer w-1/5"
+                              onClick={() => removeItem(item)}
+                            >
+                              Remove
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <hr className="border-t-[1px] border-white text-sm mt-4"></hr>
+                  <div className="w-full flex justify-between mt-4 ">
+                    <p>Subtotal</p>
+                    <p>{hkdollar.format(Number(orderTotal))}</p>
+                  </div>
+
+                  <Link href="/checkout">
+                    <button
+                      className=" w-full py-2 mt-8 rounded-sm bg-red-600 hover:bg-red-700"
+                      onClick={() => handleCheckout()}
+                    >
+                      Checkout
+                    </button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default Cart;
