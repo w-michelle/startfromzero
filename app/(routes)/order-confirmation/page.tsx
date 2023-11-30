@@ -21,22 +21,21 @@ const OrderConfirmation = () => {
 
   useEffect(() => {
     const clear = async () => {
-      try {
-        await fetch("/api/remove-cart", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            cart: [],
-          }),
-        });
+      await fetch("/api/remove-cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cart: [],
+        }),
+      });
 
+      setTimeout(() => {
         dispatch(clearCart());
         dispatch(setPaymentIntent(""));
         setLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
+      }, 5000);
     };
+
     clear();
   }, []);
 

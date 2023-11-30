@@ -15,7 +15,7 @@ const s3Client = new S3Client({
 export async function GET(req: NextRequest) {
   const session = await getServerSession(authOptions);
   const cart = await findCart(session);
-  console.log("this is getcart:", cart);
+
   const products = await Promise.all(
     cart?.cartItems.map(async (item) => {
       const product = await prisma?.product.findFirst({

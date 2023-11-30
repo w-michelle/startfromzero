@@ -42,6 +42,23 @@ const AuthForm = () => {
       password: "",
     },
   });
+
+  const guestSignin = async () => {
+    setIsLoading(true);
+    try {
+      await signIn("credentials", {
+        email: "sfzguest@sfz.com",
+        password: "sfzguest2023",
+        redirect: true,
+        callbackUrl: "/",
+      });
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+    setIsLoading(false);
+    dispatch(setClose());
+  };
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     if (variant === "REGISTER") {
@@ -108,6 +125,17 @@ const AuthForm = () => {
             </Button>
           </div>
         </form>
+        {/* guest */}
+        <div className="mt-2 w-full">
+          <Button
+            disabled={isLoading}
+            fullWidth
+            guest
+            onClick={() => guestSignin()}
+          >
+            Guest Login
+          </Button>
+        </div>
         <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-font">
           <div>
             {variant === "LOGIN" ? "New to SFZ?" : "Already have an account?"}

@@ -1,5 +1,3 @@
-import Loading from "@/app/(routes)/checkout/loading";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { selectCart } from "@/app/redux/features/cartSlice";
 import { hkdollar } from "@/util/currency";
 import {

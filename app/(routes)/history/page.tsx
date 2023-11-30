@@ -34,7 +34,7 @@ const History = () => {
   const fetchOrders = async () => {
     const response = await fetch("/api/getOrders");
     const data = await response.json();
-    console.log("checkout order:", data);
+
     return data;
   };
 

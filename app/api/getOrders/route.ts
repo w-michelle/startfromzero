@@ -35,7 +35,6 @@ export async function GET(req: NextRequest) {
       for (const item of orders) {
         for (let i = 0; i < item.orderItems.length; i++) {
           for (let j = 0; j < item.orderItems[i].images.length; j++) {
-            console.log(item.orderItems[i].images[j].imageKey);
             const params = {
               Bucket: process.env.AWS_BUCKET_NAME,
               Key: item.orderItems[i].images[j].imageKey,

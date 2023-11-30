@@ -68,14 +68,24 @@ model Product {
 }
 
 model OrderItem {
-  id          String   @id @default(cuid())
+  id          String         @id @default(cuid())
   name        String
   price       String
   description String?
-  images      Image[]
-  createdAt   DateTime @default(now())
+  images      OrderItemImg[]
+  createdAt   DateTime       @default(now())
   order       Order[]
   quantity    Float?
+}
+
+model OrderItemImg {
+  id        String   @id @default(cuid())
+  imageKey  String
+  url       String
+  createdAt DateTime @default(now())
+
+  OrderItem   OrderItem? @relation(fields: [orderItemId], references: [id])
+  orderItemId String?
 }
 
 model Order {
@@ -97,10 +107,6 @@ model Image {
   imageKey  String
   url       String
   createdAt DateTime @default(now())
-  imgurl    String?
-
-  OrderItem   OrderItem? @relation(fields: [orderItemId], references: [id])
-  orderItemId String?
 }
 
 model Cart {

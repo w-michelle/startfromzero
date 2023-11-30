@@ -23,7 +23,7 @@ const Navmenu = () => {
 
   const isOpen = useSelector(selectOpen);
   const cartOpen = useSelector(selectCartOpen);
-  console.log("nav menu showing cartOpen", cartOpen);
+
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
 

@@ -29,7 +29,7 @@ export type Product = {
 type SearchParams = {
   id: string;
 };
-const ProductIdPage = ({ searchParams }: { searchParams: SearchParams }) => {
+const ProductIdPage = () => {
   const [product, setProduct] = useState<Product>();
   const params = useParams();
   const dispatch = useDispatch();
@@ -38,7 +38,6 @@ const ProductIdPage = ({ searchParams }: { searchParams: SearchParams }) => {
     dispatch(addToCart(item));
     dispatch(setIsCartOpen());
     const result = await axios.post(`/api/addToCartAction?id=${item.id}`);
-    console.log(result.data);
   };
   useEffect(() => {
     const getProduct = async () => {

@@ -18,7 +18,10 @@ const Renovation = () => {
   }
 
   return (
-    <div className="max-w-[1200px] text-white flex justify-center mx-auto my-4 h-screen">
+    <div className="max-w-[1200px] text-white flex flex-col items-center my-4 h-screen mx-20">
+      <p className="self-start mb-6 text-font text-sm font-bold tracking-widest">
+        ELEPHANT GROUNDS
+      </p>
       <div className="scrollbar grid grid-cols-3 h-[270px] sm:h-[620px] lg:w-[930px] lg:h-[620px] overflow-y-scroll overflow-x-hidden gap-2">
         {imgarr.map((item, index) => (
           <div
@@ -37,14 +40,14 @@ const Renovation = () => {
       </div>
 
       {open && (
-        <div className="z-[10000] absolute top-0 backdrop-blur-sm bg-black/40  w-full h-screen flex justify-center items-center">
+        <div className="z-[10000] absolute top-0 right-0 backdrop-blur-sm bg-black/40  w-full h-full flex justify-center pt-[120px]">
           <button
             className="absolute text-3xl top-20 right-20"
             onClick={() => setOpen(false)}
           >
             <MdOutlineClose />
           </button>
-          <div className="relative w-[800px] h-[700px]">
+          <div className="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px]">
             <Image fill src={selectedImg} alt="reno full image" />
           </div>
         </div>

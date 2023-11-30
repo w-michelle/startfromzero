@@ -35,9 +35,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
         price: item.price,
         description: item.description,
         images: {
-          connect: item?.images?.map((image: any) => ({
-            id: image.id,
+          create: item?.images?.map((image: any) => ({
             imageKey: image.imageKey,
+            url: "",
           })),
         },
         quantity: item.quantity,
@@ -73,9 +73,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 price: item.price,
                 description: item.description || null,
                 images: {
-                  connect: item?.images?.map((image: any) => ({
-                    id: image.id,
+                  create: item?.images?.map((image: any) => ({
                     imageKey: image.imageKey,
+                    url: "",
                   })),
                 },
                 quantity: item.quantity,
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       if (!existing_order) {
         return NextResponse.json({ message: "Invalid Payment Intent" });
       }
-      console.log("existing order", existing_order);
+
       return NextResponse.json({ paymentIntent: updated_intent });
     }
   } else {
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const newOrder = await prisma?.order.create({
       data: orderData,
     });
-    console.log("new order", newOrder);
+
     return NextResponse.json({ paymentIntent });
   }
 }

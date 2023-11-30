@@ -26,7 +26,6 @@ const Cart = () => {
   const [increase, setIncrease] = useState("");
   const [decrease, setDecrease] = useState("");
   const path = usePathname();
-  console.log("current cart:", cart);
 
   const modalRef = useRef<HTMLDivElement | null>(null);
 
@@ -79,7 +78,7 @@ const Cart = () => {
       const response = await axios.post(
         `/api/cartActions?id=${item.id}&action=remove`
       );
-      console.log("cart is currently", isOpen);
+
       if (response.status === 200) {
       }
     } catch (error) {
@@ -153,9 +152,14 @@ const Cart = () => {
                                 className="object-cover"
                               />
                             </div>
-                            <p className="uppercase mt-2 w-[30px]">
-                              {item.name}
-                            </p>
+                            <Link href={`/product/${item.id}`}>
+                              <p
+                                className="uppercase mt-2 w-[30px] underline"
+                                onClick={() => dispatch(setIsCartOpen())}
+                              >
+                                {item.name}
+                              </p>
+                            </Link>
                           </div>
                           <div className="flex flex-col justify-center h-[150px] w-1/5">
                             <div className="flex">

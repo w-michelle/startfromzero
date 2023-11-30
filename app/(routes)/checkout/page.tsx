@@ -1,4 +1,5 @@
 "use client";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { setOpen } from "@/app/redux/features/authSlice";
 import {
   selectCart,
@@ -13,7 +14,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "./loading";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
@@ -27,15 +27,18 @@ const Checkout = () => {
   const dispatch = useDispatch();
 
   const [clientSecret, setClientSecret] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
   const { data: session, status } = useSession();
 
   if (!session?.user) {
     router.push("/");
     dispatch(setOpen());
   }
-  console.log(paymentIntent);
 
   useEffect(() => {
+    setLoading(true);
     if (session?.user) {
       fetch("/api/create-payment-intent", {
         method: "POST",
@@ -53,9 +56,9 @@ const Checkout = () => {
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           setClientSecret(data.paymentIntent.client_secret);
           dispatch(setPaymentIntent(data.paymentIntent.id));
+          setLoading(false);
         });
     }
   }, []);
@@ -68,8 +71,17 @@ const Checkout = () => {
     },
   };
 
+  if (loading) {
+    return (
+      <div className="h-screen text-white flex flex-col items-center justify-center">
+        <AiOutlineLoading3Quarters className="text-[3rem] animate-spin" />
+        <p className="mt-3">Loading ...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full px-6 md:px-20 text-white">
+    <div className="w-full px-6 md:px-20 text-white max-w-[1250px]">
       {clientSecret && (
         <div className="p-4">
           <Elements options={options} stripe={stripePromise}>

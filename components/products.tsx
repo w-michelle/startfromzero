@@ -27,7 +27,7 @@ const Products = () => {
     getProducts();
   }, []);
   return (
-    <div className="max-w-[1250px] grid justify-center md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-6">
+    <div className="max-w-[1250px] grid justify-center md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-6 ">
       {products?.map((product) => (
         <div key={product.id}>
           <Link
