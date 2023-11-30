@@ -32,10 +32,12 @@ const Checkout = () => {
 
   const { data: session, status } = useSession();
 
-  if (!session?.user) {
-    router.push("/");
-    dispatch(setOpen());
-  }
+  useEffect(() => {
+    if (!session?.user) {
+      router.push("/");
+      dispatch(setOpen());
+    }
+  });
 
   useEffect(() => {
     setLoading(true);

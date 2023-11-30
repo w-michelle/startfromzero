@@ -39,6 +39,7 @@ const History = () => {
   };
 
   useEffect(() => {
+    if (!session?.user) return router.push("/");
     fetchOrders()
       .then((data) => {
         setOrders(data);
@@ -56,7 +57,6 @@ const History = () => {
       </div>
     );
   if (error) return <p>Error: {error}</p>;
-  if (!session?.user) return router.push("/");
 
   return (
     <div className="px-6 md:px-20 overflow-auto min-h-[100vh] text-font">

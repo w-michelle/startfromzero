@@ -21,7 +21,6 @@ const AuthForm = () => {
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") {
