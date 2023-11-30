@@ -6,10 +6,10 @@ import { v4 as uuid } from "uuid";
 import sharp from "sharp";
 
 const s3Client = new S3Client({
-  region: process.env.AWS_BUCKET_REGION,
+  region: process.env.A_BUCKET_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY as string,
-    secretAccessKey: process.env.AWS_SECRET_KEY as string,
+    accessKeyId: process.env.A_ACCESS_KEY as string,
+    secretAccessKey: process.env.A_SECRET_KEY as string,
   },
 });
 
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const imageName = uuid();
 
       const params = {
-        Bucket: process.env.AWS_BUCKET_NAME,
+        Bucket: process.env.A_BUCKET_NAME,
         Key: imageName,
         Body: resizedImageBuffer,
         ContentType: file.type,
