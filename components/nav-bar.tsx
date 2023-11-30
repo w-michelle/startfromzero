@@ -47,6 +47,8 @@ const Navbar = () => {
   //retrieves cart when landing on page
   const { data: session } = useSession();
 
+  console.log(cart);
+
   useEffect(() => {
     const getCart = async () => {
       const response = await axios.get(`/api/getCart`);

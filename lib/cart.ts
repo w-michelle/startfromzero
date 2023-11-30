@@ -3,64 +3,11 @@ import { CartItem } from "@/app/redux/features/cartSlice";
 import { Session } from "inspector";
 import { getServerSession } from "next-auth";
 import { cookies } from "next/headers";
-// export async function getCart() {
-//   const session = await getServerSession(authOptions);
-
-//   const cart = await findCart(session);
-
-//   if (!cart) {
-//     return null;
-//   }
-//   return {
-//     ...cart,
-//     products: cart.products,
-//   };
-// }
-
-// async function findCart(session: any) {
-//   if (session) {
-//     return await prisma?.cart.findFirst({
-//       where: { userId: session.user.id },
-//       include: { products: true },
-//     });
-//   }
-
-//   const localCartId = cookies().get("localCartId")?.value;
-
-//   return localCartId
-//     ? await prisma?.cart.findUnique({
-//         where: { id: localCartId },
-//         include: { products: true },
-//       })
-//     : null;
-// }
-
-// export async function createCart() {
-//   const session = await getServerSession(authOptions);
-
-//   const newCart = await createNewCart(session);
-//   return {
-//     ...newCart,
-//     products: [],
-//   };
-// }
-
-// async function createNewCart(session: any) {
-//   if (session) {
-//     return await prisma?.cart.create({
-//       data: { userId: session.user.id },
-//     });
-//   } else {
-//     const cart = await prisma?.cart.create({});
-
-//     cookies().set("localCartId", cart!.id);
-//     return cart;
-//   }
-// }
 
 export async function mergeAnonymousCart(userId: string) {
   const localCartId = cookies().get("localCartId")?.value;
 
+  console.log(localCartId);
   const localCart = localCartId
     ? await prisma?.cart.findUnique({
         where: { id: localCartId },
