@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { findCart } from "../addToCartAction/route";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import prisma from "@/lib/prismadb";
 
 // need product id to know what to delete, need action word
 export async function POST(req: NextRequest) {

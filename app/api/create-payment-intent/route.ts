@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { current } from "@reduxjs/toolkit";
-
+import prisma from "@/lib/prismadb";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2023-10-16",
 });

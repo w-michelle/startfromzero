@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-
+import prisma from "@/lib/prismadb";
 export async function POST() {
   const session = await getServerSession();
 

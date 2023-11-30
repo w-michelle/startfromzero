@@ -5,6 +5,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Session } from "inspector";
 import { getServerSession } from "next-auth";
 import { cookies } from "next/headers";
+import prisma from "@/lib/prismadb";
 export async function POST(req: NextRequest) {
   const url = new URL(req.url);
 

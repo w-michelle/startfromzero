@@ -42,7 +42,7 @@ const CheckoutForm = (clientSecret: { clientSecret: string }) => {
       .confirmPayment({
         elements,
         confirmParams: {
-          return_url: "http://localhost:3000/order-confirmation",
+          return_url: "https://startfromzero.vercel.app/order-confirmation",
         },
       })
       .then((result) => {
