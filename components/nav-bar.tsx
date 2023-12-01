@@ -44,10 +44,6 @@ const Navbar = () => {
   const isOpen = useSelector(selectCartOpen);
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
-  //retrieves cart when landing on page
-  const { data: session } = useSession();
-
-  console.log(cart);
 
   useEffect(() => {
     const getCart = async () => {

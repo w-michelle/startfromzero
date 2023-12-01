@@ -7,7 +7,9 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 const CheckoutForm = (clientSecret: { clientSecret: string }) => {
@@ -15,6 +17,7 @@ const CheckoutForm = (clientSecret: { clientSecret: string }) => {
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
+  const router = useRouter();
 
   const [loading, setIsLoading] = useState(false);
 
@@ -49,7 +52,7 @@ const CheckoutForm = (clientSecret: { clientSecret: string }) => {
         if (!result.error) {
           console.log("success");
         } else {
-          console.log(result.error.message);
+          console.log("error");
         }
 
         setIsLoading(false);

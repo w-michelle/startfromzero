@@ -8,7 +8,6 @@ import prisma from "./prismadb";
 export async function mergeAnonymousCart(userId: string) {
   const localCartId = cookies().get("localCartId")?.value;
 
-  console.log(localCartId);
   const localCart = localCartId
     ? await prisma?.cart.findUnique({
         where: { id: localCartId },

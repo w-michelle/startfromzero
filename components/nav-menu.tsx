@@ -90,13 +90,12 @@ const Navmenu = () => {
             )}
           </div>
         ) : (
-          <div
-            className="hover:cursor-pointer"
-            onMouseEnter={() => dispatch(setOpen())}
-          >
+          <div className="hover:cursor-pointer">
             <CgProfile
               className=" hover:text-[#e7bd5a] transition  text-[#c7c5c5]/90"
-              onClick={() => (isOpen ? dispatch(setClose) : dispatch(setOpen))}
+              onClick={() =>
+                isOpen ? dispatch(setClose()) : dispatch(setOpen())
+              }
             />
             {/* if theres an account show orders and logout else if pop up authform */}
             {isOpen && <AuthModal />}
