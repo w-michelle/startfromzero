@@ -8,7 +8,7 @@ const Contact = () => {
       <div className="flex flex-col gap-4 md:flex-row justify-between w-full text-[#e1e1e1f4] mt-14 text-xs">
         <p>startfromzero_hk@outlook.com</p>
         <p>+852 7071 2448 </p>
-        <a href="/">
+        <a href="https://www.instagram.com/ratscave_sfz/" target="_blank">
           <p>INSTAGRAM</p>
         </a>
       </div>

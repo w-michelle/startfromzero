@@ -24,7 +24,7 @@ const ImageSlide = ({ product }: { product: Product }) => {
       <div className="relative w-[300px] lg:w-[400px] h-[300px] lg:h-[400px] mt-4">
         <Image
           src={currentImage === "" ? product.images[0].url : currentImage}
-          alt="product image"
+          alt={product.name}
           fill
           className="object-contain"
         />

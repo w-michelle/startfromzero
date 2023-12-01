@@ -31,7 +31,7 @@ const Details = ({ searchParams }: any) => {
             className="grid grid-cols-4 gap-2 mt-4 pr-2 text-xs items-center"
           >
             <div className="relative w-[50px] h-[50px] md:w-[100px] md:h-[100px]">
-              <Image alt="product image" src={item?.images[0].url} fill />
+              <Image alt={item.name} src={item?.images[0].url} fill />
             </div>
             <p>{item.name}</p>
             <p>{`${item.quantity} x $${item.price}`}</p>

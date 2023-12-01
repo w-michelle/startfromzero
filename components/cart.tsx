@@ -147,7 +147,7 @@ const Cart = () => {
                             <div className="hidden md:block relative w-[60px] h-[60px]">
                               <Image
                                 src={item?.images[0].url}
-                                alt="product image"
+                                alt={item.name}
                                 fill
                                 className="object-cover"
                               />

@@ -85,7 +85,7 @@ const CheckoutForm = (clientSecret: { clientSecret: string }) => {
           {cart.map((item) => (
             <div key={item.id} className="flex gap-2 mb-6">
               <div className="relative w-[80px] h-[80px]">
-                <Image fill alt="product image" src={item.images[0].url} />
+                <Image fill alt={item.name} src={item.images[0].url} />
               </div>
               <div>
                 <p>{item.name}</p>
