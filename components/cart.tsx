@@ -166,11 +166,15 @@ const Cart = () => {
                               <AiFillMinusCircle
                                 onClick={() => decreaseItem(item)}
                                 className="text-[14px] mr-2 hover:cursor-pointer"
+                                title="Decrease Quantity"
+                                aria-label="Decrease Quantity"
                               />
                               <span>{item.quantity}</span>
                               <AiFillPlusCircle
                                 onClick={() => increaseItem(item)}
                                 className="text-[14px] ml-2 hover:cursor-pointer"
+                                title="Increase Quantity"
+                                aria-label="Increase Quantity"
                               />
                             </div>
                           </div>

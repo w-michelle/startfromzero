@@ -50,6 +50,8 @@ const Navmenu = () => {
           <AiOutlineShoppingCart
             className="z-[888] relative cursor-pointer hover:text-[#e7bd5a] transition  text-font/90"
             onClick={() => dispatch(setIsCartOpen())}
+            title="Cart"
+            aria-label="Cart"
           />
           {cart?.length > 0 && (
             <div className="absolute top-0 right-[-2px] w-2 h-2 bg-[#e7bd5a] rounded-full"></div>
@@ -60,7 +62,11 @@ const Navmenu = () => {
             className="relative hover:cursor-pointer"
             onMouseEnter={() => dispatch(setOpen())}
           >
-            <CgProfile className=" hover:text-[#e7bd5a] transition  text-[#c7c5c5]/90" />
+            <CgProfile
+              className=" hover:text-[#e7bd5a] transition  text-[#c7c5c5]/90"
+              title="Profile"
+              aria-label="Profile"
+            />
             {/* if theres an account show orders and logout else if pop up authform */}
 
             {isOpen && (
@@ -96,6 +102,8 @@ const Navmenu = () => {
               onClick={() =>
                 isOpen ? dispatch(setClose()) : dispatch(setOpen())
               }
+              title="Profile"
+              aria-label="Profile"
             />
             {/* if theres an account show orders and logout else if pop up authform */}
             {isOpen && <AuthModal />}
