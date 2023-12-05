@@ -78,7 +78,7 @@ const Navbar = () => {
       {isOpen && <Cart />}
       <div className="hidden md:flex items-center gap-20 ">
         <Link href="/">
-          <div className="relative w-[120px] h-[100px]">
+          <div className="relative w-[130px] h-[100px]">
             <Image src="/logo.png" alt="Logo" className="object-contain" fill />
           </div>
         </Link>
@@ -92,11 +92,11 @@ const Navbar = () => {
             <BsPlusLg
               className={`${
                 toggle ? "rotate-45 transition" : "rotate-90 transition"
-              } text-xl text-font/90 hover:cursor-pointer`}
+              } text-2xl mr-2 text-font/90 hover:cursor-pointer`}
             />
           </div>
           <Link href="/">
-            <div className="relative w-[120px] h-[100px]">
+            <div className="relative w-[130px] h-[100px]">
               <Image
                 src="/logo.png"
                 alt="Logo"

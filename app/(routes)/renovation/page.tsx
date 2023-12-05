@@ -21,8 +21,8 @@ const Renovation = () => {
 
   return (
     <Suspense fallback={<Loading />}>
-      <div className="max-w-[1200px] text-white flex flex-col items-center my-4 h-screen mx-20">
-        <p className="self-start mb-6 text-font text-sm font-bold tracking-widest">
+      <div className="max-w-[1200px] text-white flex flex-col items-center my-4 h-screen md:mx-24">
+        <p className="self-start my-6 mx-8 text-font text-xs md:text-sm font-bold tracking-widest">
           ELEPHANT GROUNDS
         </p>
         <div className="scrollbar grid grid-cols-3 h-[270px] sm:h-[620px] lg:w-[930px] lg:h-[620px] overflow-y-scroll overflow-x-hidden gap-2">

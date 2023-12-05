@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 type AddCartType = {
   name: string;
   price: string;
@@ -26,6 +26,7 @@ interface Order {
 
 const History = () => {
   const [orders, setOrders] = useState<Order[] | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { data: session, status } = useSession();
@@ -52,8 +53,9 @@ const History = () => {
   }, []);
   if (loading)
     return (
-      <div className="min-h-[100vh] flex flex-col items-center justify-center text-font">
-        <p>Loading ...</p>
+      <div className="h-screen text-white flex flex-col items-center justify-center">
+        <AiOutlineLoading3Quarters className="text-[3rem] animate-spin" />
+        <p className="mt-3">Loading ...</p>
       </div>
     );
   if (error) return <p>Error: {error}</p>;

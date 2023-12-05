@@ -40,12 +40,12 @@ const Products = () => {
 
   return (
     <div className="max-w-[1250px] ">
-      <div className="relative w-[500px] h-[400px] md:w-[700px] md:h-[400px] lg:w-[1000px] opacity-80 mb-8 mx-auto">
+      <div className="relative w-[435px] h-[400px] md:w-[700px] md:h-[400px] lg:w-[1000px] opacity-80 mb-8 mx-auto">
         <Image
           alt="Image of Shop"
           fill
           src="/sfz-shop.jpg"
-          className="object-cover"
+          className="object-cover object-left"
         />
       </div>
       <div className="grid items-center justify-center md:grid-cols-3 lg:grid-cols-4 gap-y-8 gap-x-6">

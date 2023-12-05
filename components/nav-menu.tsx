@@ -34,7 +34,7 @@ const Navmenu = () => {
 
   return (
     <div
-      className={`flex items-center justify-between w-full text-xs md:text-md`}
+      className={`flex items-center justify-between w-full text-xs md:text-md mt-4 md:mt-0`}
     >
       <ul className="flex font-semibold tracking-wider gap-8 text-font/90">
         <li className="hover:text-[#e7bd5a] transition">
@@ -48,7 +48,7 @@ const Navmenu = () => {
       <div className="flex items-center gap-8 text-xl md:text-[25px]">
         <div className="relative mr-2">
           <AiOutlineShoppingCart
-            className="z-[888] relative cursor-pointer hover:text-[#e7bd5a] transition  text-font/90"
+            className="z-[888] relative cursor-pointer hover:text-[#e7bd5a] transition text-[25px] text-font/90"
             onClick={() => dispatch(setIsCartOpen())}
             title="Cart"
             aria-label="Cart"
@@ -63,7 +63,7 @@ const Navmenu = () => {
             onMouseEnter={() => dispatch(setOpen())}
           >
             <CgProfile
-              className=" hover:text-[#e7bd5a] transition  text-[#c7c5c5]/90"
+              className=" hover:text-[#e7bd5a] transition text-[25px] text-[#c7c5c5]/90"
               title="Profile"
               aria-label="Profile"
             />
@@ -98,7 +98,7 @@ const Navmenu = () => {
         ) : (
           <div className="hover:cursor-pointer">
             <CgProfile
-              className=" hover:text-[#e7bd5a] transition  text-[#c7c5c5]/90"
+              className=" hover:text-[#e7bd5a] transition text-[25px] text-[#c7c5c5]/90"
               onClick={() =>
                 isOpen ? dispatch(setClose()) : dispatch(setOpen())
               }
