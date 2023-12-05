@@ -22,7 +22,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
   });
 
   if (posts) {
-    console.log("get posts", posts);
     for (let i = 0; i < posts.length; i++) {
       for (let j = 0; j < posts[i].images.length; j++) {
         const params = {

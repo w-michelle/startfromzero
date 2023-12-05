@@ -1,5 +1,6 @@
 "use client";
 import { selectPaymentIntent } from "@/app/redux/features/cartSlice";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { hkdollar } from "@/util/currency";
 import axios from "axios";
 import Image from "next/image";
@@ -16,16 +17,27 @@ type Product = {
 };
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
-
+  const [loading, setLoading] = useState(false);
   const paymentIntent = useSelector(selectPaymentIntent);
 
   useEffect(() => {
+    setLoading(true);
     const getProducts = async () => {
       const allProducts = await axios.get("/api/getProducts");
       setProducts(allProducts.data);
     };
     getProducts();
+    setLoading(false);
   }, []);
+  if (loading) {
+    return (
+      <div className="h-screen text-white flex flex-col items-center justify-center">
+        <AiOutlineLoading3Quarters className="text-[3rem] animate-spin" />
+        <p className="mt-3">Loading ...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-[1250px] ">
       <div className="relative w-[500px] h-[400px] md:w-[700px] md:h-[400px] lg:w-[1000px] opacity-80 mb-8 mx-auto">
