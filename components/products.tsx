@@ -17,26 +17,14 @@ type Product = {
 };
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(false);
-  const paymentIntent = useSelector(selectPaymentIntent);
 
   useEffect(() => {
-    setLoading(true);
     const getProducts = async () => {
       const allProducts = await axios.get("/api/getProducts");
       setProducts(allProducts.data);
     };
     getProducts();
-    setLoading(false);
   }, []);
-  if (loading) {
-    return (
-      <div className="h-screen text-white flex flex-col items-center justify-center">
-        <AiOutlineLoading3Quarters className="text-[3rem] animate-spin" />
-        <p className="mt-3">Loading ...</p>
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-[1250px] ">
