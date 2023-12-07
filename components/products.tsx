@@ -17,7 +17,6 @@ type Product = {
 };
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const timeStamp = new Date().getTime();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -49,11 +48,7 @@ const Products = () => {
               }}
             >
               <div className="relative w-[200px] h-[200px]">
-                <Image
-                  fill
-                  src={`${product.images[0].url}?${timeStamp}`}
-                  alt={product.name}
-                />
+                <Image fill src={product.images[0].url} alt={product.name} />
               </div>
               <p>{product.name}</p>
               <p>{hkdollar.format(Number(product.price))}</p>
