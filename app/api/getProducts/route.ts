@@ -11,27 +11,31 @@ const s3Client = new S3Client({
 });
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  const posts = await prisma?.product.findMany({
-    include: { images: true },
-  });
+  try {
+    const posts = await prisma?.product.findMany({
+      include: { images: true },
+    });
 
-  if (posts) {
-    for (let i = 0; i < posts.length; i++) {
-      for (let j = 0; j < posts[i].images.length; j++) {
-        if (posts[i].images[j].url == "") {
-          const params = {
-            Bucket: process.env.A_BUCKET_NAME,
-            Key: posts[i].images[j].imageKey,
-          };
-          const command = new GetObjectCommand(params);
-          const url = await getSignedUrl(s3Client, command, {
-            expiresIn: 3600,
-          });
-          posts[i].images[j].url = url;
+    if (posts) {
+      for (let i = 0; i < posts.length; i++) {
+        for (let j = 0; j < posts[i].images.length; j++) {
+          if (posts[i].images[j].url == "") {
+            const params = {
+              Bucket: process.env.A_BUCKET_NAME,
+              Key: posts[i].images[j].imageKey,
+            };
+            const command = new GetObjectCommand(params);
+            const url = await getSignedUrl(s3Client, command, {
+              expiresIn: 3600,
+            });
+            posts[i].images[j].url = url;
+          }
         }
       }
     }
-  }
 
-  return NextResponse.json(posts);
+    return NextResponse.json(posts);
+  } catch (error) {
+    return new NextResponse(`${error}`, { status: 500 });
+  }
 }

@@ -18,7 +18,7 @@ type Product = {
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  console.log(products);
+  console.log(products[0]?.images[0].url);
   useEffect(() => {
     setLoading(true);
     const getProducts = async () => {
@@ -60,7 +60,7 @@ const Products = () => {
               }}
             >
               <div className="relative w-[200px] h-[200px]">
-                <Image src={product.images[0].url} alt={product.name} fill />
+                <Image src={product.images[0]?.url} alt={product.name} fill />
               </div>
               <p>{product.name}</p>
               <p>{hkdollar.format(Number(product.price))}</p>
