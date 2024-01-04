@@ -48,7 +48,12 @@ const Products = () => {
               }}
             >
               <div className="relative w-[200px] h-[200px]">
-                <Image fill src={product.images[0].url} alt={product.name} />
+                <Image
+                  src={product.images[0].url}
+                  alt={product.name}
+                  width={200}
+                  height={200}
+                />
               </div>
               <p>{product.name}</p>
               <p>{hkdollar.format(Number(product.price))}</p>

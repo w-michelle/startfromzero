@@ -25,6 +25,8 @@ const Cart = () => {
   const isOpen = useSelector(selectCartOpen);
   const [increase, setIncrease] = useState("");
   const [decrease, setDecrease] = useState("");
+  const [removeItems, setRemoveItems] = useState("");
+
   const path = usePathname();
 
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -34,7 +36,14 @@ const Cart = () => {
   }, 0);
 
   const handleOutsideClick = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+    const target = e.target as HTMLElement;
+    console.log(target);
+    if (
+      modalRef.current &&
+      !modalRef.current.contains(target as Node) &&
+      target &&
+      !target.closest(".cart-content")
+    ) {
       dispatch(setIsCartOpen());
     }
   };
@@ -74,17 +83,21 @@ const Cart = () => {
   const removeItem = async (item: CartItem) => {
     try {
       dispatch(removeFromCart(item));
+      console.log("removed!");
 
       const response = await axios.post(
         `/api/cartActions?id=${item.id}&action=remove`
       );
 
       if (response.status === 200) {
+        setRemoveItems("removed item");
+        //set pop up for 'item removed!'
       }
     } catch (error) {
       console.error("Error in remove item", error);
     }
   };
+
   const handleCheckout = () => {
     dispatch(setCheckout());
     dispatch(setIsCartOpen());
@@ -106,7 +119,7 @@ const Cart = () => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className={`text-white absolute z-[999] top-0 left-0 w-full backdrop-blur-sm bg-black/40 ${
+          className={` text-white absolute z-[999] top-0 left-0 w-full backdrop-blur-sm bg-black/40 ${
             path === "/" ? "h-screen" : "h-full"
           }`}
           initial={{ x: "100%" }} // Initially positioned to the right
@@ -142,7 +155,10 @@ const Cart = () => {
 
                     <div className="scrollbar border-t-[1px] border-white w-full h-[500px] md:h-[600px] overflow-y-scroll">
                       {cart.map((item) => (
-                        <div key={item.id} className="flex items-center w-full">
+                        <div
+                          key={item.id}
+                          className="cart-content flex items-center w-full"
+                        >
                           <div className="pt-4 w-1/5">
                             <div className="hidden md:block relative w-[60px] h-[60px]">
                               <Image
