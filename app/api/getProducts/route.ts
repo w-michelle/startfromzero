@@ -15,21 +15,19 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const posts = await prisma?.product.findMany({
       include: { images: true },
     });
-
+    console.log("found posts:", posts);
     if (posts) {
       for (let i = 0; i < posts.length; i++) {
         for (let j = 0; j < posts[i].images.length; j++) {
-          if (posts[i].images[j].url == "") {
-            const params = {
-              Bucket: process.env.A_BUCKET_NAME,
-              Key: posts[i].images[j].imageKey,
-            };
-            const command = new GetObjectCommand(params);
-            const url = await getSignedUrl(s3Client, command, {
-              expiresIn: 3600,
-            });
-            posts[i].images[j].url = url;
-          }
+          const params = {
+            Bucket: process.env.A_BUCKET_NAME,
+            Key: posts[i].images[j].imageKey,
+          };
+          const command = new GetObjectCommand(params);
+          const url = await getSignedUrl(s3Client, command, {
+            expiresIn: 3600,
+          });
+          posts[i].images[j].url = url;
         }
       }
     }
