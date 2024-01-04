@@ -22,9 +22,13 @@ const Products = () => {
     const getProducts = async () => {
       const allProducts = await axios.get("/api/getProducts");
       setProducts(allProducts.data);
+      return allProducts.data;
     };
     getProducts();
   }, []);
+  if (!products) {
+    return null;
+  }
 
   return (
     <div className="max-w-[1250px] ">
@@ -48,12 +52,7 @@ const Products = () => {
               }}
             >
               <div className="relative w-[200px] h-[200px]">
-                <Image
-                  src={product.images[0].url}
-                  alt={product.name}
-                  width={200}
-                  height={200}
-                />
+                <Image src={product.images[0].url} alt={product.name} fill />
               </div>
               <p>{product.name}</p>
               <p>{hkdollar.format(Number(product.price))}</p>
