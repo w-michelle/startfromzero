@@ -18,7 +18,7 @@ type Product = {
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
-  console.log(products[0]?.images[0].url);
+
   useEffect(() => {
     setLoading(true);
     const getProducts = async () => {

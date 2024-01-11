@@ -17,6 +17,7 @@ import axios from "axios";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 const Cart = () => {
   const cart = useSelector(selectCart);
@@ -37,7 +38,7 @@ const Cart = () => {
 
   const handleOutsideClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
-    console.log(target);
+
     if (
       modalRef.current &&
       !modalRef.current.contains(target as Node) &&
@@ -55,46 +56,28 @@ const Cart = () => {
   const increaseItem = async (item: CartItem) => {
     try {
       dispatch(increaseQty(item));
-      const response = await axios.post(
-        `/api/cartActions?id=${item.id}&action=increase`
-      );
-      if (response.status === 200) {
-        setIncrease("increase");
-      }
+      await axios.post(`/api/cartActions?id=${item.id}&action=increase`);
     } catch (error) {
-      console.error("Error in increase item", error);
+      toast.error("Oops! Something  went wrong");
     }
   };
 
   const decreaseItem = async (item: CartItem) => {
     try {
-      dispatch(decreaseQty(item));
-      const response = await axios.post(
-        `/api/cartActions?id=${item.id}&action=decrease`
-      );
-      if (response.status === 200) {
-        setDecrease("decrease");
-      }
+      // dispatch(decreaseQty(item));
+      await axios.post(`/api/cartActions?id=${item.id}&action=decrease`);
     } catch (error) {
-      console.error("Error in decrease item", error);
+      toast.error("Oops! Something  went wrong");
     }
   };
 
   const removeItem = async (item: CartItem) => {
     try {
       dispatch(removeFromCart(item));
-      console.log("removed!");
 
-      const response = await axios.post(
-        `/api/cartActions?id=${item.id}&action=remove`
-      );
-
-      if (response.status === 200) {
-        setRemoveItems("removed item");
-        //set pop up for 'item removed!'
-      }
+      await axios.post(`/api/cartActions?id=${item.id}&action=remove`);
     } catch (error) {
-      console.error("Error in remove item", error);
+      toast.error("Oops! Something  went wrong");
     }
   };
 

@@ -1,18 +1,18 @@
 # Start From Zero
 
 This project is an eCommerce website that is created based on an actual website.
-The main feature of this is merging an anonymous cart with the user's logged-in cart.
 
 **[View Site](https://startfromzero.vercel.app)**
 
 ## Built With
 
 - Next.js
-- React
+- Typescript
 - Redux
 - Prisma
 - PostgreSQL
 - TailwindCSS
+- Amazon S3
 - Stripe
 
 ## Features

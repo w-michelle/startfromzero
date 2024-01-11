@@ -19,6 +19,7 @@ import {
 import Cart from "./cart";
 import axios from "axios";
 import { getSession, useSession } from "next-auth/react";
+import { Toaster } from "react-hot-toast";
 
 type Products = {
   id: string;

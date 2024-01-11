@@ -99,7 +99,7 @@ const AuthForm = () => {
 
   return (
     <div className="sm:mx-auto sm:w-full sm:max-w-md ">
-      <div className="bg-[#292928] p-14 shadow rounded-lg sm:px-10">
+      <div className="bg-[#292928] p-14 shadow rounded-lg sm:px-16">
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
           {variant === "REGISTER" && (
             <Input id="name" label="Name" register={register} errors={errors} />
@@ -125,23 +125,28 @@ const AuthForm = () => {
           </div>
         </form>
         {/* guest */}
-        <div className="mt-2 w-full">
-          <Button
-            disabled={isLoading}
-            fullWidth
-            guest
-            onClick={() => guestSignin()}
-          >
-            Guest Login
-          </Button>
+        <div className="mt-4 w-full">
+          {variant == "LOGIN" && (
+            <Button
+              disabled={isLoading}
+              fullWidth
+              guest
+              onClick={() => guestSignin()}
+            >
+              Guest Login
+            </Button>
+          )}
         </div>
-        <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-font">
+        <div className="auth-content flex gap-2 justify-center text-sm mt-6 px-2 text-font">
           <div>
             {variant === "LOGIN" ? "New to SFZ?" : "Already have an account?"}
           </div>
-          <div onClick={toggleVariant} className="underline cursor-pointer">
+          <button
+            onClick={() => toggleVariant()}
+            className="underline cursor-pointer"
+          >
             {variant === "LOGIN" ? "Create an account" : "Login"}
-          </div>
+          </button>
         </div>
       </div>
     </div>

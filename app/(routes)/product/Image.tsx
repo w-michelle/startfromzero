@@ -6,7 +6,7 @@ import { Product } from "./[productId]/page";
 
 const ImageSlide = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState("");
-  console.log(currentImage);
+
   const images = () => {
     if (product && product.images) {
       return product.images.map((image, index) => (

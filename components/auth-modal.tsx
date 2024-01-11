@@ -13,7 +13,13 @@ const AuthModal = () => {
 
   // Function to close the modal when clicking outside of it
   const handleOutsideClick = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+    const target = e.target as HTMLElement;
+    if (
+      modalRef.current &&
+      !modalRef.current.contains(target as Node) &&
+      target &&
+      !target.closest(".auth-content")
+    ) {
       dispatch(setClose());
     }
   };

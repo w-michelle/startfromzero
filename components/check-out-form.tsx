@@ -59,6 +59,10 @@ const CheckoutForm = (clientSecret: { clientSecret: string }) => {
       });
   };
 
+  if (orderTotal === 0) {
+    router.push("/");
+  }
+
   return (
     <div className=" text-white flex flex-col md:flex-row gap-10 w-full">
       <div className="w-full md:w-1/2">
