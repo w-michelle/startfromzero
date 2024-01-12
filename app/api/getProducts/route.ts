@@ -9,6 +9,7 @@ const s3Client = new S3Client({
     secretAccessKey: process.env.A_SECRET_KEY as string,
   },
 });
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
