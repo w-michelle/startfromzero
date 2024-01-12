@@ -64,7 +64,7 @@ const Cart = () => {
 
   const decreaseItem = async (item: CartItem) => {
     try {
-      // dispatch(decreaseQty(item));
+      dispatch(decreaseQty(item));
       await axios.post(`/api/cartActions?id=${item.id}&action=decrease`);
     } catch (error) {
       toast.error("Oops! Something  went wrong");
