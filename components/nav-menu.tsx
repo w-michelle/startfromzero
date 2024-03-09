@@ -22,7 +22,6 @@ const Navmenu = () => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   const isOpen = useSelector(selectOpen);
-  const cartOpen = useSelector(selectCartOpen);
 
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);

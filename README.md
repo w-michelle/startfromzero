@@ -13,6 +13,7 @@ This project is an eCommerce website that is created based on an actual website.
 - PostgreSQL
 - TailwindCSS
 - Amazon S3
+- NextAuth
 - Stripe
 
 ## Features
