@@ -1,7 +1,3 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { CartItem } from "@/app/redux/features/cartSlice";
-import { Session } from "inspector";
-import { getServerSession } from "next-auth";
 import { cookies } from "next/headers";
 import prisma from "./prismadb";
 

@@ -8,10 +8,11 @@ const ImageSlide = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState("");
 
   const images = () => {
+    console.log(product);
     if (product && product.images) {
       return product.images.map((image, index) => (
         <div
-          key={index}
+          key={image.id}
           className="relative w-[50px] h-[50px] md:w-[100px] md:h-[100px] hover:cursor-pointer"
           onClick={() => setCurrentImage(image.url)}
         >
