@@ -1,5 +1,5 @@
 "use client";
-import { CartItem } from "@/app/redux/features/cartSlice";
+
 import Image from "next/image";
 import { useState } from "react";
 import { Product } from "./[productId]/page";

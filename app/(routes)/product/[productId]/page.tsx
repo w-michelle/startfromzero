@@ -37,7 +37,7 @@ const ProductIdPage = () => {
   const handleAddToCart = async (item: CartItem) => {
     dispatch(addToCart(item));
     dispatch(setIsCartOpen());
-    const result = await axios.post(`/api/addToCartAction?id=${item.id}`);
+    await axios.post(`/api/addToCartAction?id=${item.id}`);
   };
   useEffect(() => {
     const getProduct = async () => {
@@ -47,6 +47,7 @@ const ProductIdPage = () => {
     };
     getProduct();
   }, []);
+
   if (!product) {
     return null;
   }

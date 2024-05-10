@@ -8,7 +8,7 @@ import {
 } from "@/app/redux/features/cartSlice";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

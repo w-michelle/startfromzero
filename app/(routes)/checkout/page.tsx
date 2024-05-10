@@ -3,7 +3,6 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { setOpen } from "@/app/redux/features/authSlice";
 import {
   selectCart,
-  selectCheckout,
   selectPaymentIntent,
   setPaymentIntent,
 } from "@/app/redux/features/cartSlice";

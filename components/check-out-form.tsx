@@ -8,8 +8,8 @@ import {
 } from "@stripe/react-stripe-js";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 
 const CheckoutForm = (clientSecret: { clientSecret: string }) => {

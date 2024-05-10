@@ -24,9 +24,6 @@ const Cart = () => {
   const dispatch = useDispatch();
 
   const isOpen = useSelector(selectCartOpen);
-  const [increase, setIncrease] = useState("");
-  const [decrease, setDecrease] = useState("");
-  const [removeItems, setRemoveItems] = useState("");
 
   const path = usePathname();
 
