@@ -16,7 +16,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const posts = await prisma?.product.findMany({
       include: { images: true },
     });
-    console.log("found posts:", posts);
+
     if (posts) {
       for (let i = 0; i < posts.length; i++) {
         for (let j = 0; j < posts[i].images.length; j++) {

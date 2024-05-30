@@ -8,7 +8,6 @@ const ImageSlide = ({ product }: { product: Product }) => {
   const [currentImage, setCurrentImage] = useState("");
 
   const images = () => {
-    console.log(product);
     if (product && product.images) {
       return product.images.map((image, index) => (
         <div

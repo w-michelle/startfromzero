@@ -37,9 +37,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       };
 
       const command = new PutObjectCommand(params);
-      console.log(command);
       await s3Client.send(command);
-
       imageSrcs.push(imageName);
     }
 
