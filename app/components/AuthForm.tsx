@@ -133,7 +133,7 @@ const AuthForm = () => {
               guest
               onClick={() => guestSignin()}
             >
-              Guest Login
+              TESTER LOG IN
             </Button>
           )}
         </div>

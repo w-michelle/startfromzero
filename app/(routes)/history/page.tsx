@@ -68,7 +68,7 @@ const History = () => {
           <tr className="text-left mb-4 border-b-[1px] border-font leading-10">
             <th>Order References</th>
             <th>Status</th>
-            <th>Time</th>
+            <th>Date</th>
             <th>Details</th>
             <th>Total</th>
           </tr>

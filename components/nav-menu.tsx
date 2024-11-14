@@ -70,7 +70,7 @@ const Navmenu = () => {
 
             {isOpen && (
               <div
-                className="absolute z-[888] top-0 bg-transparent left-[-100px] text-sm"
+                className="absolute z-[888] top-10 bg-transparent left-[-100px] text-sm"
                 ref={modalRef}
                 onMouseEnter={() => dispatch(setOpen())}
                 onMouseLeave={() => dispatch(setClose())}
