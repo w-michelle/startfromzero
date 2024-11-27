@@ -103,6 +103,7 @@ const Navbar = () => {
                 alt="Logo"
                 className="object-contain"
                 fill
+                priority
               />
             </div>
           </Link>
