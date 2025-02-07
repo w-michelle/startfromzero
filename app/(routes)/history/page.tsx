@@ -95,10 +95,9 @@ const History = () => {
                       orderItems: JSON.stringify(order.orderItems),
                     },
                   }}
+                  className="border-[1px] border-black hover:text-black hover:bg-[#e7bd5a] rounded-lg md:px-3 md:text-sm md:py-1 px-1 text-[6px]"
                 >
-                  <button className="border-[1px] border-black hover:text-black hover:bg-[#e7bd5a] rounded-lg md:px-3 md:text-sm md:py-1 px-1 text-[6px]">
-                    View Detail
-                  </button>
+                  View Detail
                 </Link>
               </td>
               <td>${Number(order.amount)}</td>

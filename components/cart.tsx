@@ -205,12 +205,12 @@ const Cart = () => {
                   </div>
 
                   <Link href="/checkout">
-                    <button
+                    <div
                       className=" w-full py-2 mt-8 rounded-sm bg-red-600 hover:bg-red-700"
                       onClick={() => handleCheckout()}
                     >
                       Checkout
-                    </button>
+                    </div>
                   </Link>
                 </div>
               )}

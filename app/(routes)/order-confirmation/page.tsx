@@ -54,10 +54,11 @@ const OrderConfirmation = () => {
       <p className="text-center">
         Your order has been received and we are excited to send it your way!
       </p>
-      <Link href="/history">
-        <button className="py-4 w-[300px] bg-black hover:bg-black/20 text-font font-semibold mt-4">
-          Check your Order
-        </button>
+      <Link
+        href="/history"
+        className="py-4 w-[300px] bg-black hover:bg-black/20 text-font font-semibold mt-4"
+      >
+        Check your Order
       </Link>
     </div>
   );
