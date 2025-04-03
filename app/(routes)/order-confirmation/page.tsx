@@ -11,14 +11,19 @@ import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const OrderConfirmation = () => {
-  const cart = useSelector(selectCart);
-  const paymentIntent = useSelector(selectPaymentIntent);
   const dispatch = useDispatch();
-
+  const router = useRouter();
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
-
+  useEffect(() => {
+    if (!session?.user) {
+      router.push("/");
+    }
+  });
   useEffect(() => {
     const clear = async () => {
       await fetch("/api/remove-cart", {
@@ -56,7 +61,7 @@ const OrderConfirmation = () => {
       </p>
       <Link
         href="/history"
-        className="py-4 w-[300px] bg-black hover:bg-black/20 text-font font-semibold mt-4"
+        className="py-4 text-center w-[300px] bg-black hover:bg-black/20 text-font font-semibold mt-4 rounded-md"
       >
         Check your Order
       </Link>

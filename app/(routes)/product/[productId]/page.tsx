@@ -67,7 +67,7 @@ const ProductIdPage = () => {
 
             <button
               onClick={() => handleAddToCart({ ...product, quantity: 1 })}
-              className="bg-red-600 hover:bg-red-700 text-white w-[150px] py-2 rounded-xl"
+              className="bg-red-600 hover:bg-red-700 text-white w-[150px] py-2 rounded-md"
             >
               Add to cart
             </button>

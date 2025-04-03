@@ -99,31 +99,32 @@ const Cart = () => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className={` text-white absolute z-[999] top-0 left-0 w-full backdrop-blur-sm bg-black/40 ${
+          className={`text-white absolute z-[999] top-0 left-0 w-full backdrop-blur-sm bg-black/40 ${
             path === "/" ? "h-screen" : "h-full"
-          }`}
+          } `}
           initial={{ x: "100%" }} // Initially positioned to the right
           animate={{ x: 0, transition: { duration: 0.5, ease: "easeInOut" } }} // Slower slide in with ease
           exit={{ x: "100%", transition: { duration: 0.5, ease: "easeInOut" } }}
         >
+          {/* cart */}
           <div
-            className="bg-black border-l-[1px] border-white w-full sm:w-[450px] h-full absolute right-0"
+            className="flex flex-col justify-between bg-black border-white border-l-[1px] w-full sm:w-[450px] h-screen overflow-y-scroll absolute right-0"
             ref={modalRef}
           >
-            <button
-              className="m-4 absolute right-0 font-thin text-sm"
-              onClick={() => dispatch(setIsCartOpen())}
-            >
-              Close
-            </button>
-            <div className="p-4 mt-10">
-              <h1 className="mb-4">
-                {cart?.length === 0
-                  ? "Your cart is empty"
-                  : `Cart (${cart.length})`}
-              </h1>
-              {cart?.length > 0 && (
-                <div className="h-full">
+            <div>
+              <button
+                className="m-4 absolute right-0 font-thin text-sm"
+                onClick={() => dispatch(setIsCartOpen())}
+              >
+                Close
+              </button>
+              <div className="p-4 mt-10">
+                <h1 className="mb-4">
+                  {cart?.length === 0
+                    ? "Your cart is empty"
+                    : `Cart (${cart.length})`}
+                </h1>
+                {cart?.length > 0 && (
                   <div className="text-[10px] sm:text-xs w-full">
                     <ul className="border-b-[1px] border-white w-full flex ">
                       <li className="w-1/5">Item</li>
@@ -133,7 +134,7 @@ const Cart = () => {
                       <li className="w-1/5"></li>
                     </ul>
 
-                    <div className="scrollbar border-t-[1px] border-white w-full h-[500px] md:h-[600px] overflow-y-scroll">
+                    <div className="scrollbar border-t-[1px] border-white w-full h-auto md:h-[400px] overflow-y-scroll">
                       {cart.map((item) => (
                         <div
                           key={item.id}
@@ -198,22 +199,24 @@ const Cart = () => {
                       ))}
                     </div>
                   </div>
-                  <hr className="border-t-[1px] border-white text-sm mt-4"></hr>
-                  <div className="w-full flex justify-between mt-4 ">
-                    <p>Subtotal</p>
-                    <p>{hkdollar.format(Number(orderTotal))}</p>
-                  </div>
-
-                  <Link href="/checkout">
-                    <div
-                      className=" w-full py-2 mt-8 rounded-sm bg-red-600 hover:bg-red-700"
-                      onClick={() => handleCheckout()}
-                    >
-                      Checkout
-                    </div>
-                  </Link>
+                )}
+              </div>
+            </div>
+            {/* bottom subtotal */}
+            <div className="px-4 pb-6">
+              <hr className="border-t-[1px] border-white text-sm mt-4"></hr>
+              <div className="w-full flex justify-between mt-4 ">
+                <p>Subtotal</p>
+                <p>{hkdollar.format(Number(orderTotal))}</p>
+              </div>
+              <Link href="/checkout">
+                <div
+                  className="text-center w-full py-2 mt-8 rounded-sm bg-red-600 hover:bg-red-700"
+                  onClick={() => handleCheckout()}
+                >
+                  Checkout
                 </div>
-              )}
+              </Link>
             </div>
           </div>
         </motion.div>

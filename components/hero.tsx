@@ -1,9 +1,15 @@
+import Image from "next/image";
+
 const Hero = () => {
   return (
-    <div
-      style={{ backgroundImage: `url(${"/hero.png"})` }}
-      className="relative top-0 left-0 h-screen bg-cover z-[-10]"
-    ></div>
+    <div className="relative top-0 left-0 h-screen z-[10]">
+      <Image
+        alt="Hero Image"
+        src="/hero.png"
+        fill
+        className="object-cover"
+      />
+    </div>
   );
 };
 

@@ -67,8 +67,14 @@ const CheckoutForm = (clientSecret: { clientSecret: string }) => {
     <div className=" text-white flex flex-col md:flex-row gap-10 w-full">
       <div className="w-full md:w-1/2">
         <h1 className="text-md mb-6">Checkout</h1>
-        <form onSubmit={handleSubmit} id="payment-form">
-          <PaymentElement id="payment-element" options={{ layout: "tabs" }} />
+        <form
+          onSubmit={handleSubmit}
+          id="payment-form"
+        >
+          <PaymentElement
+            id="payment-element"
+            options={{ layout: "tabs" }}
+          />
           <h2 className="mt-10 mb-6">Shipping Address</h2>
           <AddressElement options={{ mode: "shipping" }} />
 
@@ -87,9 +93,16 @@ const CheckoutForm = (clientSecret: { clientSecret: string }) => {
         <h2>Order Summary</h2>
         <div className="mt-6">
           {cart.map((item) => (
-            <div key={item.id} className="flex gap-2 mb-6">
+            <div
+              key={item.id}
+              className="flex gap-2 mb-6"
+            >
               <div className="relative w-[80px] h-[80px]">
-                <Image fill alt={item.name} src={item.images[0].url} />
+                <Image
+                  fill
+                  alt={item.name}
+                  src={item.images[0].url}
+                />
               </div>
               <div>
                 <p>{item.name}</p>

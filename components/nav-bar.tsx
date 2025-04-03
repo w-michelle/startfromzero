@@ -46,6 +46,19 @@ const Navbar = () => {
   const cart = useSelector(selectCart);
   const dispatch = useDispatch();
 
+  // disable scrolling when cart modal is opened.
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   useEffect(() => {
     const getCart = async () => {
       const response = await axios.get(`/api/getCart`);
@@ -80,7 +93,12 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-20 ">
         <Link href="/">
           <div className="relative w-[130px] h-[100px]">
-            <Image src="/logo.png" alt="Logo" className="object-contain" fill />
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              className="object-contain"
+              fill
+            />
           </div>
         </Link>
         <Navmenu />
