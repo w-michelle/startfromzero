@@ -134,7 +134,7 @@ const Cart = () => {
                       <li className="w-1/5"></li>
                     </ul>
 
-                    <div className="scrollbar border-t-[1px] border-white w-full h-auto md:h-[400px] overflow-y-scroll">
+                    <div className="scrollbar border-t-[1px] border-white w-full h-[400px] md:h-[400px] overflow-y-scroll">
                       {cart.map((item) => (
                         <div
                           key={item.id}
