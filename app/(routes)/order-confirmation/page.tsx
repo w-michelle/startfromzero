@@ -1,16 +1,10 @@
 "use client";
-import {
-  clearCart,
-  selectCart,
-  selectPaymentIntent,
-  setCheckout,
-  setPaymentIntent,
-} from "@/app/redux/features/cartSlice";
+import { clearCart, setPaymentIntent } from "@/app/redux/features/cartSlice";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Link from "next/link";
 
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -20,10 +14,11 @@ const OrderConfirmation = () => {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    if (status === "loading") return;
     if (!session?.user) {
       router.push("/");
     }
-  });
+  }, [session, status]);
   useEffect(() => {
     const clear = async () => {
       await fetch("/api/remove-cart", {
