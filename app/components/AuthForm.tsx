@@ -21,6 +21,7 @@ const AuthForm = () => {
   const [variant, setVariant] = useState<Variant>("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const toggleVariant = useCallback(() => {
     if (variant === "LOGIN") {
@@ -45,13 +46,20 @@ const AuthForm = () => {
   const guestSignin = async () => {
     setIsLoading(true);
     try {
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         email: "sfzguest@sfz.com",
         password: "sfzguest2023",
-        redirect: true,
-        callbackUrl: "/",
+        redirect: false,
       });
-      toast.success("Logged in!");
+
+      if (result?.error) {
+        toast.error("Something went wrong!");
+      } else {
+        toast.success("Logged in!");
+        setTimeout(() => {
+          router.push("/");
+        }, 1500);
+      }
     } catch (error) {
       toast.error("Something went wrong!");
     }
@@ -65,12 +73,22 @@ const AuthForm = () => {
       try {
         await axios.post("/api/register", data);
 
-        await signIn("credentials", {
+        const result = await signIn("credentials", {
           email: data.email,
           password: data.password,
-          redirect: true,
-          callbackUrl: "/",
+          redirect: false,
         });
+
+        if (result?.error) {
+          toast.error(
+            "Sign-in failed after registration. Please try logging in."
+          );
+        } else {
+          toast.success("Registered & Logged in!");
+          setTimeout(() => {
+            router.push("/");
+          }, 1500);
+        }
       } catch (error) {
         toast.error("Something went wrong!");
       }
@@ -78,23 +96,22 @@ const AuthForm = () => {
       dispatch(setClose());
     }
     if (variant === "LOGIN") {
-      //NEXTAUTH SIGNIN
-      signIn("credentials", {
+      const result = await signIn("credentials", {
         ...data,
         redirect: false,
-      })
-        .then((callback) => {
-          if (callback?.error) {
-            toast.error("Invalid credentials");
-          }
-          if (callback?.ok && !callback?.error) {
-            toast.success("Logged in!");
+      });
 
-            window.location.reload();
-            dispatch(setClose());
-          }
-        })
-        .finally(() => setIsLoading(false));
+      if (result?.error) {
+        toast.error("Invalid credentials");
+      } else {
+        toast.success("Logged in!");
+
+        setTimeout(() => {
+          router.refresh();
+        }, 1500);
+      }
+      setIsLoading(false);
+      dispatch(setClose());
     }
   };
 
