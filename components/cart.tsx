@@ -108,7 +108,7 @@ const Cart = () => {
         >
           {/* cart */}
           <div
-            className="flex flex-col justify-between bg-black border-white border-l-[1px] w-full sm:w-[450px] h-screen overflow-y-none absolute right-0"
+            className="flex flex-col justify-between bg-black border-white border-l-[1px] w-full sm:w-[450px] h-[100dvh] overflow-y-none absolute right-0"
             ref={modalRef}
           >
             <div>
