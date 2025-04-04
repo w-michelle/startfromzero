@@ -51,6 +51,7 @@ const AuthForm = () => {
         redirect: true,
         callbackUrl: "/",
       });
+      toast.success("Logged in!");
     } catch (error) {
       toast.error("Something went wrong!");
     }
@@ -100,9 +101,17 @@ const AuthForm = () => {
   return (
     <div className="sm:mx-auto sm:w-full sm:max-w-md ">
       <div className="bg-[#292928] p-14 shadow rounded-lg sm:px-16">
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="space-y-6"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           {variant === "REGISTER" && (
-            <Input id="name" label="Name" register={register} errors={errors} />
+            <Input
+              id="name"
+              label="Name"
+              register={register}
+              errors={errors}
+            />
           )}
           <Input
             id="email"
@@ -119,7 +128,11 @@ const AuthForm = () => {
             errors={errors}
           />
           <div>
-            <Button disabled={isLoading} type="submit" fullWidth>
+            <Button
+              disabled={isLoading}
+              type="submit"
+              fullWidth
+            >
               {variant === "LOGIN" ? "Sign in" : "Register"}
             </Button>
           </div>
