@@ -2,24 +2,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { CgProfile } from "react-icons/cg";
+
 import { BsPlusLg } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import Navmenu from "./nav-menu";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addToCart,
-  selectCartOpen,
-  CartItem,
-  selectCart,
-  setCart,
-  selectCheckout,
-} from "@/app/redux/features/cartSlice";
+import { selectCartOpen, setCart } from "@/app/redux/features/cartSlice";
 import Cart from "./cart";
 import axios from "axios";
-import { getSession, useSession } from "next-auth/react";
-import { Toaster } from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 type Products = {
   id: string;
@@ -43,7 +34,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const [toggle, setToggle] = useState(false);
   const isOpen = useSelector(selectCartOpen);
-  const cart = useSelector(selectCart);
+  const { data: session, status } = useSession();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -68,7 +59,7 @@ const Navbar = () => {
       }
     };
     getCart();
-  }, []);
+  }, [status]);
 
   return (
     <nav
