@@ -100,7 +100,7 @@ const Cart = () => {
       {isOpen && (
         <motion.div
           className={`text-white absolute z-[999] top-0 left-0 w-full backdrop-blur-sm bg-black/40 ${
-            path === "/" ? "h-screen" : "h-full"
+            path === "/" ? "min-h-screen" : "h-full"
           } `}
           initial={{ x: "100%" }} // Initially positioned to the right
           animate={{ x: 0, transition: { duration: 0.5, ease: "easeInOut" } }} // Slower slide in with ease
@@ -108,7 +108,7 @@ const Cart = () => {
         >
           {/* cart */}
           <div
-            className="flex flex-col justify-between bg-black border-white border-l-[1px] w-full sm:w-[450px] h-[100dvh] overflow-y-none absolute right-0"
+            className="flex flex-col justify-between bg-black border-white border-l-[1px] w-full sm:w-[450px] min-h-screen h-auto overflow-y-none absolute right-0"
             ref={modalRef}
           >
             <div>
