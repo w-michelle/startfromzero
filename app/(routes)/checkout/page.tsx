@@ -36,7 +36,7 @@ const Checkout = () => {
       router.push("/");
       dispatch(setOpen());
     }
-  });
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -85,7 +85,10 @@ const Checkout = () => {
     <div className="w-full px-6 md:px-20 text-white max-w-[1250px]">
       {clientSecret && (
         <div className="p-4">
-          <Elements options={options} stripe={stripePromise}>
+          <Elements
+            options={options}
+            stripe={stripePromise}
+          >
             <CheckoutForm clientSecret={clientSecret} />
           </Elements>
         </div>
