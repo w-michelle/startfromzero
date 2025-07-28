@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { selectOpen, setClose, setOpen } from "@/app/redux/features/authSlice";
 import AuthModal from "./auth-modal";
+import { useRouter } from "next/navigation";
 
 const Navmenu = () => {
   const session = useSession();
@@ -22,13 +23,14 @@ const Navmenu = () => {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   const isOpen = useSelector(selectOpen);
-
+  const router = useRouter();
   const dispatch = useDispatch();
   const cart = useSelector(selectCart);
 
   const handleSignOut = () => {
     dispatch(clearCart());
     signOut();
+    router.push("/");
   };
 
   return (
